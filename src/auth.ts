@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
 import Credentials from "next-auth/providers/credentials";
@@ -13,7 +13,10 @@ export const {
   signOut,
 } = NextAuth({
   callbacks: {
-    async session({token, session}) {
+    async session({ token, session }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub;
+      }
       console.log(token);
       console.log(session);
 
@@ -37,7 +40,7 @@ export const {
 
           if (!user || !(await compare(password, user.passwordHash)))
             return null;
-
+          const u = user as User;
           return user;
         }
 

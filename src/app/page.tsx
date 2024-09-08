@@ -14,6 +14,9 @@ export default async function Home() {
       {session ? (
         <div>
           <pre>{JSON.stringify(session, null, 2)}</pre>
+          <div>
+            Id: {JSON.stringify(session.user)}
+          </div>
           <form
             action={async () => {
               "use server";
