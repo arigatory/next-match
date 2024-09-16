@@ -1,4 +1,5 @@
 import { auth, signOut } from "@/auth";
+import LikeButton from "@/components/LikeButton";
 import TopNav from "@/components/navbar/TopNav";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
